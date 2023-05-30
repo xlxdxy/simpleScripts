@@ -1,13 +1,14 @@
 import os
 
-folder_path = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs"
+folder_path_list = ["C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs", os.environ['APPDATA'] + "\\Microsoft\\Windows\\Start Menu\\Programs"]
 uninstall_files = []
 
-for root, dirs, files in os.walk(folder_path):
-    for file in files:
-        if file.startswith("卸载"):
-            uninstall_files.append(os.path.join(root, file))
-            print(os.path.join(root, file))
+for folder_path in folder_path_list:
+    for root, dirs, files in os.walk(folder_path):
+        for file in files:
+            if file.startswith("卸载"):
+                uninstall_files.append(os.path.join(root, file))
+                print(os.path.join(root, file))
 
 if len(uninstall_files) == 0:
     print("没有找到以'卸载'开头的文件")
